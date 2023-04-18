@@ -26,4 +26,31 @@ public Comparable[] sort ( Comparable[] array ) {
 1. positionA - позиция записи в левой части массива.
 2. positionB - позиция записи в правой части массива.
 3. positionB - позиция записи в буфере.
-4. 
+Размер буфера равен размеру сумме размерности левой и правой частей массива. Сам цикл слияния можно разделить на три части.
+1. Итерации которые заполняют буфер из двух частей массива. Выполняются пока в обоих массивах есть элементы.
+2. Итерации дозаписывающие в буфер остаток левой части массива.
+3. Итерации дозаписывающие в буфер остаток правой части массива.
+```java
+private Comparable[] merge ( final Comparable[] arrayA, final Comparable[] arrayB ) {
+  int positionA = 0;
+  int positionB = 0;
+  int positionB = 0;
+  Comparable[] buffer = new Comparable [ arrayA.length+arrayB.length ];
+  while ( positionA < arrayA.length && positionB < arrayB.length ) {
+    if ( arrayA[positionA].compareTo(arrayB[positionB]) < 0 ) {
+      buffer[positionB++] = arrayA[positionA++];
+    } else {
+      buffer[positionB++] = arrayB[positionB++];
+    }
+  }
+  // Дозапись частей массива.
+  while ( positionA < arrayA.length )
+    buffer[positionB++] = arrayA[positionA++];
+  while ( positionB < arrayB.length )
+    buffer[positionB++] = arrayB[positionB++];
+  return buffer;
+}
+```
+Время сортировки данной реализации алгоритма была протестирована на массиве из 1 000 000 элементов заполненном случайными числами в диапазоне [-1000...1000]. Всего было выполненно 100 итерация сортировки и среднее время составило 215.83. Уже не плохо по крайней мере намного быстрее чем простые алгоритмы сортировки. Но данная реализация имеет несколько недостатков. 
+
+## Улучшеине алгоритма №1
