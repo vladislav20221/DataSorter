@@ -2,16 +2,7 @@ import java.util.Arrays;
 
 
 public class MergeSort {
-    // Выбирает порядок сортировки. true - прямой, false - обратный.
-    private final int koef;
-    
-    public MergeSort ( final boolean koef ) { this.koef = (koef)?1:-1; }
-    
-    /**
-     * Запускает процесс сортировки для заданной колекции Array
-     * @param array
-     * @return
-     */
+
     public Comparable[] sort ( Comparable[] array ) {
         if ( array == null ) return null;
         if ( array.length < 2 ) return array;        
@@ -30,20 +21,20 @@ public class MergeSort {
     private Comparable[] merge ( final Comparable[] arrayA, final Comparable[] arrayB ) {
         int positionA = 0;
         int positionB = 0;
-        int positionMerge = 0;
-        Comparable[] merged = new Comparable [ arrayA.length+arrayB.length ];
+        int positionB = 0;
+        Comparable[] buffer = new Comparable [ arrayA.length+arrayB.length ];
         while ( positionA < arrayA.length && positionB < arrayB.length ) {
-            if ( arrayA[positionA].compareTo(arrayB[positionB])*koef <= 0 )                 
-                merged[positionMerge++] = arrayA[positionA++];
+            if ( arrayA[positionA].compareTo(arrayB[positionB]) < 0 )                 
+                buffer[positionB++] = arrayA[positionA++];
             else {
-                merged[positionMerge++] = arrayB[positionB++];
+                buffer[positionB++] = arrayB[positionB++];
             }
         }
         // Дозапись частей массива.
         while ( positionA < arrayA.length )
-            merged[positionMerge++] = arrayA[positionA++];
+            buffer[positionB++] = arrayA[positionA++];
         while ( positionB < arrayB.length )
-            merged[positionMerge++] = arrayB[positionB++];
-        return merged;
+            buffer[positionB++] = arrayB[positionB++];
+        return buffer;
     }
 }
