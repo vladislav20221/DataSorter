@@ -24,9 +24,9 @@ public class MergeSort {
         int positionB = 0;
         Comparable[] buffer = new Comparable [ arrayA.length+arrayB.length ];
         while ( positionA < arrayA.length && positionB < arrayB.length ) {
-            if ( arrayA[positionA].compareTo(arrayB[positionB]) < 0 )                 
+            if ( arrayA[positionA].compareTo(arrayB[positionB]) < 0 ) {                
                 buffer[positionB++] = arrayA[positionA++];
-            else {
+            } else {
                 buffer[positionB++] = arrayB[positionB++];
             }
         }
